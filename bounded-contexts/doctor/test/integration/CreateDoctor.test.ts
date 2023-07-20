@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto"
-import { CreateDoctor } from "../../../doctor/src/application/usecases/CreateDoctor"
+import { CreateDoctor } from "../../src/application/usecases/CreateDoctor"
 
 describe("Create doctor test", () => {
 

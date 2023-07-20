@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { Doctor } from "../../../doctor/src/domain/Doctor";
+import { Doctor } from "../../src/domain/Doctor";
 
 describe("Doctor unit tests", () => {
 
