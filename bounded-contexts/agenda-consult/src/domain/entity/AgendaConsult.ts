@@ -1,6 +1,6 @@
 import { Doctor } from "./Doctor"
 import { Patient } from "./Patient"
-import { Timer } from "./@shared/value-object/Timer"
+import { Timer } from "../value-object/Timer"
 
 export class AgendaConsult {
     timer: Timer 

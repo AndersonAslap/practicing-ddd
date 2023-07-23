@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto"
-import { AgendaConsult } from "../../../doctor/src/domain/AgendaConsult"
-import { Patient } from "../../../doctor/src/domain/Patient"
-import { Doctor } from "../../../doctor/src/domain/Doctor"
+import { AgendaConsult } from "../../src/domain/entity/AgendaConsult"
+import { Patient } from "../../src/domain/entity/Patient"
+import { Doctor } from "../../src/domain/entity/Doctor"
 
 let patient: Patient
 let doctor: Doctor
@@ -9,8 +9,8 @@ let doctor: Doctor
 describe("Agenda consult unit tests", () => {
 
     beforeAll(() => {
-        patient = new Patient(randomUUID(), "Anderson Aslap", new Date("1998-12-29"), "MASCULINE")
-        doctor = new Doctor(randomUUID(), "Beatriz", "Nutricionista", "beatriz@nutri.io", "81932356523")
+        patient = new Patient(randomUUID(), "Anderson Aslap")
+        doctor = new Doctor(randomUUID(), "Beatriz", "Nutricionista")
     })
 
     it("should throw error when id is empty", () => {
