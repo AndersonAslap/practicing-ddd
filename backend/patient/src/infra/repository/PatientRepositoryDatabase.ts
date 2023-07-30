@@ -6,8 +6,15 @@ export class PatientRepositoryDatabase implements PatientRepository {
     
     constructor(readonly connection: DatabaseConnection){}
 
-    all(): Promise<Patient[]> {
-        throw new Error("Method not implemented.");
+    async list(): Promise<Patient[]> {
+        const patients : Patient[] = []
+        const patientData = await this.connection.query('select * from patients', [])
+        for (const patient of patientData) {
+            patients.push(
+                new Patient(patient.id, patient.name, patient.birthday, patient.gender)
+            )
+        }
+        return patients
     }
 
     async create(patient: Patient): Promise<void> {

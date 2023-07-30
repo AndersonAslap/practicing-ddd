@@ -1,18 +1,18 @@
 import { Patient } from "../../domain/Patient"
 import { RepositoryFactory } from '../factory/RepositoryFactory'
-import { PatientRepository } from "../repository/PatientRepository"
+import { PatientRepository } from '../repository/PatientRepository'
+import { UseCase } from './UseCase'
 
-export class CreatePatient {
+export class CreatePatient implements UseCase {
     patientRepository: PatientRepository
 
-    constructor(readonly repositoryFactory: RepositoryFactory){
-        this.patientRepository = this.repositoryFactory.createPatientRepository()
+    constructor(repositoryFactory: RepositoryFactory){
+        this.patientRepository = repositoryFactory.createPatientRepository()
     }
 
-    async execute(input: Input) : Promise<any> {
+    async execute(input: Input) : Promise<void> {
         const patient = new Patient(input.id, input.name, input.birthday, input.gender)
         await this.patientRepository.create(patient)
-        return patient
     }
 }
 

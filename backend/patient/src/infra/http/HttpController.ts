@@ -5,7 +5,9 @@ export class HttpController {
 
     constructor(httpServer: HttpServer, useCaseFactory: UseCaseFactory) {
         httpServer.on("get", "/patients", async function(params:any, body:any, headers:any){
-            return {message:'hello'}
+            const getAllPatient = useCaseFactory.getAllPatient()
+            const output = await getAllPatient.execute()
+            return output
         })
 
         httpServer.on("post", "/patients", async function(params:any, body:any, headers:any){
