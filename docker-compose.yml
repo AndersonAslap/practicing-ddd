@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: db_manager_hospital
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=manage_hospital
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./schema:/schema
+    networks:
+      manager_hospital_network:
+        ipv4_address: 172.18.0.2
+
+  container_patient:
+    build: 
+      context: ./backend/patient
+    container_name: container_patient
+    entrypoint: wait-for db_manager_hospital:5432 -t 40 -- npx nodemon src/main.ts
+    tty: true 
+    volumes:
+      - ./backend/patient:/usr/src/app
+    depends_on:
+      - db 
+    networks:
+      manager_hospital_network:
+        ipv4_address: 172.18.0.3
+
+  nginx:
+    build: 
+      context: ./nginx
+    container_name: nginx_manager_hospital 
+    tty: true 
+    ports:
+      - 3001:80
+    networks:
+      manager_hospital_network:
+        ipv4_address: 172.18.0.20
+    depends_on:
+      - db
+      - container_patient
+
+networks:
+  manager_hospital_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
