@@ -5,7 +5,7 @@ export class PgPromiseAdapter implements DatabaseConnection {
     connection: any
 
     async connect(): Promise<void> {
-        this.connection = pgp()('postgres://root:root@db_manager_hospital:5432/manage_hospital')
+        this.connection = pgp()('postgres://root:root@db:5432/db_hospital')
     }
 
     async query(statement: string, params: any): Promise<any> {
